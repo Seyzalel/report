@@ -1,6 +1,10 @@
 import time
 import random
 import sys
+import os
+
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def loading_animation(duration, message="Processing"):
     animation = "|/-\\"
@@ -38,12 +42,26 @@ def send_reports(proxies, url, report_count, proxy_type):
     elapsed_time = round(time.time() - start_time, 2)
     print(f"\nReports successfully sent in {elapsed_time} seconds. Please check the page.")
 
+clear_terminal()
 print("""
+                                          
+@@@@@@@@@@   @@@@@@@@  @@@@@@@@  @@@ @@@  
+@@@@@@@@@@@  @@@@@@@@  @@@@@@@@  @@@ @@@  
+@@! @@! @@!  @@!       @@!       @@! !@@  
+!@! !@! !@!  !@!       !@!       !@! @!!  
+@!! !!@ @!@  @!!!:!    @!!!:!     !@!@!   
+!@!   ! !@!  !!!!!:    !!!!!:      @!!!   
+!!:     !!:  !!:       !!:         !!:    
+:!:     :!:  :!:       :!:         :!:    
+:::     ::    :: ::::   ::          ::    
+ :      :    : :: ::    :           :     
+                                          
 Welcome to the Instagram Mass Report Tool!
 This script was developed by the MefyHub Security Team for penetration testing and automation purposes. 
-Please note: Misuse of this tool can result in permanent bans. Use it cautiously and only for ethical testing.
+Contact: Telegram https://t.me/mefyhub
 
-The script is fully functional and optimized for realistic behavior.
+Please note: Misuse of this tool can result in permanent bans. Use it cautiously and only for ethical testing.
+Do not share this software to maintain its effectiveness and prevent blocking.
 """)
 
 url = input("Enter the Instagram profile URL: ").strip()
