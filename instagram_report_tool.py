@@ -34,13 +34,29 @@ def send_reports(proxies, url, report_count, proxy_type):
     total_time = random.uniform(40, 60)
     interval = total_time / processed_reports
     start_time = time.time()
+    error_rate = 0.2
+    errors = int(processed_reports * error_rate)
+    successful_reports = processed_reports - errors
+    successful_sent = 0
+    error_sent = 0
+
     for i in range(processed_reports):
         proxy = f"@{random.choice(proxies)}"
-        sys.stdout.write(f"\rUsing {proxy_type} proxy {proxy} to report {url}... ({i + 1}/{processed_reports})")
-        sys.stdout.flush()
+        if error_sent < errors and random.random() < error_rate:
+            sys.stdout.write(f"\r[ERROR] Failed to use {proxy_type} proxy {proxy} to report {url}... ({i + 1}/{processed_reports})")
+            sys.stdout.flush()
+            error_sent += 1
+        else:
+            sys.stdout.write(f"\rUsing {proxy_type} proxy {proxy} to report {url}... ({i + 1}/{processed_reports})")
+            sys.stdout.flush()
+            successful_sent += 1
         time.sleep(interval)
+    
     elapsed_time = round(time.time() - start_time, 2)
-    print(f"\nReports successfully sent in {elapsed_time} seconds. Please check the page.")
+    print(f"\n\nReports completed in {elapsed_time} seconds.")
+    print(f"Successfully sent: {successful_sent}")
+    print(f"Failed to send: {error_sent}")
+    print("Please check the page.")
 
 clear_terminal()
 print("""
@@ -59,6 +75,7 @@ print("""
 Welcome to the Instagram Mass Report Tool!
 This script was developed by the MefyHub Security Team for penetration testing and automation purposes. 
 Contact: Telegram https://t.me/mefyhub
+Contact: Telegram https://seyzalelEireli
 
 Please note: Misuse of this tool can result in permanent bans. Use it cautiously and only for ethical testing.
 Do not share this software to maintain its effectiveness and prevent blocking.
